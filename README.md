@@ -1,9 +1,18 @@
 # Sandworm-APT-Analysis
 
+Cyber threat intelligence analysis of the Sandworm APT group's cyber operations against Ukraine's power grid, examining attack techniques, ICS vulnerabilities, and defensive lessons for critical infrastructure security.
 ## Overview
 This project analyzes the cyber operations conducted by the Russian state-sponsored threat group Sandworm Team, which is linked to GRU Unit 74455. The analysis focuses on the group's cyberattacks against Ukraine’s power grid in 2015, 2016, and 2022, which represent the first confirmed cyber operations that caused real-world power outages. These incidents demonstrate how Advanced Persistent Threats (APTs) can target critical infrastructure and create physical consequences through cyber means.
 
 This report examines the attack methodology, malware used, infrastructure weaknesses exploited, and defensive lessons for organizations operating Industrial Control Systems (ICS).
+
+## Timeline of Major Attacks
+
+| Year | Event |
+|-----|------|
+| 2015 | First cyberattack causing large-scale power outage in Ukraine |
+| 2016 | Industroyer malware used to automate substation attacks |
+| 2022 | Sandworm targeted power infrastructure during Russia–Ukraine conflict |  
 
 ## Key Events Analyzed
 
@@ -54,7 +63,7 @@ Typical Sandworm attack chain observed across incidents:
 **3. Lateral Movement**
 - Remote administration tools
 - Domain credential abuse 
-**ICS Manipulation**
+**4. ICS Manipulation**
 - SCADA command execution
 - Circuit breaker shutdown 
 **5. Impact**
@@ -92,7 +101,7 @@ Critical infrastructure organizations should maintain:
 **5. Threat Intelligence Integration**
 Participation in threat intelligence sharing communities (such as ISACs) helps organizations detect emerging attack patterns faster.  
 
-## Strategic Impact
+## Broader Impact on Cybersecurity
 Sandworm’s campaigns changed how the cybersecurity community views cyber warfare. These incidents demonstrated that cyberattacks can move beyond data theft and cause direct physical disruption to national infrastructure. The attacks forced governments and critical infrastructure operators worldwide to reconsider the security of industrial control systems.
 
 ## Skills Demonstrated
@@ -103,8 +112,21 @@ This project demonstrates:
 - APT campaign analysis
 - Cyber warfare case study research
 
-## References
+## My Key Takeaway
+
+While researching these attacks, one thing that stood out was how much the attackers relied on poor IT/OT segmentation. Once they gained access to corporate networks, they were eventually able to reach operational systems controlling substations.
+
+This highlights how traditional IT security failures can cascade into physical infrastructure disruptions.
+
+## Research Sources
+The analysis was conducted using publicly available threat intelligence and reports from:
 - MITRE ATT&CK – Ukraine Electric Power Attack Campaigns
 - WIRED – Analysis of Sandworm operations
 - Recorded Future – Threat intelligence reporting
+
+## Author
+
+Durga Sai Sri Ramireddy  
+Master’s Student – Cybersecurity  
+University of Houston
 - Reuters – Coverage of cyber warfare investigations
