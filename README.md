@@ -127,6 +127,7 @@ The analysis was conducted using publicly available threat intelligence and repo
 ## Author
 
 Durga Sai Sri Ramireddy  
-Master’s Student – Cybersecurity  
+Master’s Student - Cybersecurity  
 University of Houston
 
+*This project was developed as part of academic coursework and expanded for cybersecurity portfolio demonstration.*
