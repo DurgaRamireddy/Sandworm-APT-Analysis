@@ -126,5 +126,5 @@ The most consistent enabler across all three attacks was **poor IT/OT segmentati
 > This analysis was conducted using publicly available threat intelligence. Developed as part of academic coursework and expanded for cybersecurity portfolio demonstration.
 
 **Author:** Durga Sai Sri Ramireddy | MS Cybersecurity, University of Houston  
-[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0072b1?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/durgaramireddy)
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0072b1?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/durga-ramireddy)
 [![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/DurgaRamireddy)
