@@ -1,133 +1,130 @@
-# Sandworm-APT-Analysis
+# Sandworm APT - Threat Intelligence Analysis
 
-Cyber threat intelligence analysis of the Sandworm APT group's cyber operations against Ukraine's power grid, examining attack techniques, ICS vulnerabilities, and defensive lessons for critical infrastructure security.
-## Overview
-This project analyzes the cyber operations conducted by the Russian state-sponsored threat group Sandworm Team, which is linked to GRU Unit 74455. The analysis focuses on the group's cyberattacks against Ukraine’s power grid in 2015, 2016, and 2022, which represent the first confirmed cyber operations that caused real-world power outages. These incidents demonstrate how Advanced Persistent Threats (APTs) can target critical infrastructure and create physical consequences through cyber means.
+A structured cyber threat intelligence report analyzing the Sandworm APT group's campaigns against Ukraine's power grid (2015, 2016, 2022) reconstructing multi-stage attack sequences, mapping adversary TTPs to MITRE ATT&CK, and extracting defensive lessons for critical infrastructure security.
 
-This report examines the attack methodology, malware used, infrastructure weaknesses exploited, and defensive lessons for organizations operating Industrial Control Systems (ICS).
+📄 [Full Analysis Report (PDF)](Sandworm_APT_Analysis_Paper.pdf)
 
-## Timeline of Major Attacks
+---
 
-| Year | Event |
-|-----|------|
-| 2015 | First cyberattack causing large-scale power outage in Ukraine |
-| 2016 | Industroyer malware used to automate substation attacks |
-| 2022 | Sandworm targeted power infrastructure during Russia–Ukraine conflict |  
+## Threat Actor Profile
 
-## Key Events Analyzed
+| Attribute | Details |
+|---|---|
+| Group | Sandworm Team |
+| Sponsor | Russian GRU Unit 74455 |
+| Target Sector | Critical Infrastructure (Energy / ICS / OT) |
+| Notable Malware | BlackEnergy, Industroyer (CrashOverride), CaddyWiper |
+| First Confirmed Impact | December 2015 — Ukraine power outages |
 
-**2015 Ukraine Power Grid Attack**
-On December 23, 2015, attackers compromised three energy distribution companies and remotely shut down electrical substations, leaving over 230,000 people without power.
+---
 
-## Attack Characteristics
-- Initial access through spear-phishing
-- Deployment of BlackEnergy
-- Credential harvesting and lateral movement
-- Remote manipulation of SCADA systems
-- Use of KillDisk to wipe operator workstations
-- Telephone DDoS attack to disrupt outage reporting
+## Attack Timeline
 
-## 2016 Ukraine Power Grid Attack
-In December 2016, attackers launched another power disruption using a more advanced ICS-focused malware.
+| Year | Event | Impact |
+|---|---|---|
+| 2015 | BlackEnergy + SCADA manipulation | 230,000+ customers lost power |
+| 2016 | Industroyer automates substation attacks | First malware built for ICS disruption |
+| 2022 | LotL techniques + CaddyWiper during active conflict | Power facility disrupted alongside missile strikes |
 
-**Malware Used**
-- Industroyer (also known as CrashOverride)
-**Capabilities**
-- Direct communication with industrial protocols:
-    - IEC 101
-    - IEC 104
-    - OPC DA
-- Automated command execution against substation equipment
-- Built-in wiper module to hinder recovery
-This attack demonstrated automated ICS manipulation, increasing the scale and efficiency of cyber operations against infrastructure.
+---
 
-## 2022 Power Grid Attack
-In October 2022, during the Russia-Ukraine war, Sandworm conducted another cyberattack against a Ukrainian power facility while missile strikes targeted infrastructure.
-**Key Techniques**
-- Compromise of SCADA hypervisor
-- Deployment of malicious ISO containing MicroSCADA control binary
-- Circuit breaker manipulation
-- Deployment of CaddyWiper on IT infrastructure
-This operation showed a shift toward living-off-the-land techniques, where attackers used legitimate system tools instead of custom malware.
+## Attack Lifecycle & MITRE ATT&CK Mapping
 
-## Attack Lifecycle
+### 2015 Attack Chain
 
-Typical Sandworm attack chain observed across incidents:
-**1. Initial Access**
-- Spear-phishing emails
-- Exploitation of vulnerabilities
-**2. Persistence**
-- Scheduled tasks
-- Credential harvesting
-- Backdoors 
-**3. Lateral Movement**
-- Remote administration tools
-- Domain credential abuse 
-**4. ICS Manipulation**
-- SCADA command execution
-- Circuit breaker shutdown 
-**5. Impact**
-- Power outages
-- Destruction of recovery systems
-- Operational disruption
+| Stage | Technique | MITRE ID |
+|---|---|---|
+| Initial Access | Spear-phishing with malicious attachment | T1566.001 |
+| Execution | BlackEnergy malware deployment | T1204.002 |
+| Credential Access | Credential harvesting | T1003 |
+| Lateral Movement | Remote administration tools | T1021 |
+| Impact | Remote SCADA manipulation, KillDisk wiper | T1489, T1485 |
+| Defense Evasion | Telephone DDoS to disrupt outage reporting | T1498 |
+
+### 2016 Attack Chain - Industroyer
+
+Industroyer (CrashOverride) was the first malware purpose-built to speak native ICS protocols — eliminating the need for manual operator interaction.
+
+| Capability | Detail |
+|---|---|
+| ICS Protocols Targeted | IEC 101, IEC 104, OPC DA |
+| Function | Automated circuit breaker commands |
+| Persistence Module | Scheduled tasks, backdoors |
+| Wiper Module | Hindered recovery post-attack |
+
+| Stage | MITRE ID |
+|---|---|
+| ICS Protocol Abuse | T0855 |
+| Automated Attack Sequencing | T0858 |
+| Inhibit Response Function | T0838 |
+
+### 2022 Attack Chain - Living off the Land
+
+| Stage | Technique | MITRE ID |
+|---|---|
+| Initial Access | SCADA hypervisor compromise | T1190 |
+| Execution | Malicious ISO with MicroSCADA binary | T1204 |
+| Impact | Circuit breaker manipulation | T0855 |
+| Defense Evasion | CaddyWiper on IT infrastructure | T1485 |
+
+**Key shift:** 2022 demonstrated a move away from custom malware toward living-off-the-land (LotL) techniques — using legitimate system tools to blend in with normal operations and evade detection.
+
+---
 
 ## Key Vulnerabilities Exploited
-The attacks succeeded due to several systemic weaknesses:
-- Poor segmentation between IT and OT networks
-- Legacy ICS protocols without authentication
-- Limited monitoring of industrial control traffic
-- Insufficient incident response capabilities
-- Lack of visibility into lateral movement\
-Protocols such as Modbus and DNP3 lack built-in encryption and authentication, making them easier to manipulate.
 
-## Defensive Lessons for Organizations
+| Weakness | Description |
+|---|---|
+| IT/OT Flat Networks | No segmentation between corporate and operational systems |
+| Unauthenticated ICS Protocols | Modbus, DNP3 lack built-in encryption or authentication |
+| Limited OT Visibility | No monitoring of industrial control traffic |
+| Weak Incident Response | No ICS-specific playbooks or backup procedures |
+| Credential Exposure | Domain credentials reused across IT and OT environments |
+
+---
+
+## Defensive Recommendations
+
 **1. Network Segmentation**
-Strict separation between IT and OT networks reduces the risk of malware reaching industrial systems.
-**2. Continuous Monitoring**
-Organizations should deploy:
-- SIEM platforms
-- EDR solutions
-- ICS protocol monitoring tools
-Monitoring traffic involving protocols such as IEC 104 can reveal early reconnaissance or manipulation attempts.
-**3. Infrastructure Hardening**
-- Patch vulnerable systems
-- Disable unused ports and services
-- Update firmware in ICS devices 
-**4. Incident Response Planning**
-Critical infrastructure organizations should maintain:
-- ICS-specific response playbooks
-- Backup operational procedures
-- Cyber incident simulation exercises
-**5. Threat Intelligence Integration**
-Participation in threat intelligence sharing communities (such as ISACs) helps organizations detect emerging attack patterns faster.  
+Strict IT/OT separation is the single most impactful control. Once Sandworm breached corporate networks, flat architecture allowed direct reach to SCADA systems.
 
-## Broader Impact on Cybersecurity
-Sandworm’s campaigns changed how the cybersecurity community views cyber warfare. These incidents demonstrated that cyberattacks can move beyond data theft and cause direct physical disruption to national infrastructure. The attacks forced governments and critical infrastructure operators worldwide to reconsider the security of industrial control systems.
+**2. ICS Protocol Monitoring**
+Deploy monitoring for IEC 104, Modbus, and DNP3 traffic. Anomalous command sequences against substation equipment are detectable with the right visibility tools (e.g., Claroty, Dragos, Security Onion).
+
+**3. SIEM & EDR Coverage**
+Extend SIEM ingestion to OT network logs. EDR on engineering workstations can surface lateral movement before ICS systems are reached.
+
+**4. Threat Intelligence Sharing**
+Participation in ISACs (E-ISAC for energy sector) accelerates detection of emerging Sandworm TTPs before they reach your environment.
+
+**5. ICS Incident Response Playbooks**
+Maintain backup manual procedures for substation operations — the 2015 attack succeeded partly because operators had no fallback when SCADA was taken offline.
+
+---
+
+## Key Takeaway
+
+The most consistent enabler across all three attacks was **poor IT/OT segmentation**. Once Sandworm gained a foothold in corporate networks, the path to operational systems was largely unobstructed. Traditional IT security failures cascaded directly into physical infrastructure disruption which is a pattern that remains relevant for any organization running industrial control systems today.
+
+---
 
 ## Skills Demonstrated
-This project demonstrates:
-- Threat actor analysis
-- Critical infrastructure security analysis
-- Industrial Control System (ICS) threat modeling
-- APT campaign analysis
-- Cyber warfare case study research
 
-## My Key Takeaway
+`Threat Intelligence` `APT Analysis` `ICS/OT Security` `MITRE ATT&CK Mapping` `Critical Infrastructure Security` `Cyber Warfare Research` `Attack Reconstruction` `Defensive Recommendations`
 
-While researching these attacks, one thing that stood out was how much the attackers relied on poor IT/OT segmentation. Once they gained access to corporate networks, they were eventually able to reach operational systems controlling substations.
-
-This highlights how traditional IT security failures can cascade into physical infrastructure disruptions.
+---
 
 ## Research Sources
-The analysis was conducted using publicly available threat intelligence and reports from:
-- MITRE ATT&CK – Ukraine Electric Power Attack Campaigns
-- WIRED – Analysis of Sandworm operations
-- Recorded Future – Threat intelligence reporting
 
-## Author
+- MITRE ATT&CK - Ukraine Electric Power Attack Campaigns
+- CISA Advisory AA22-076A - Destructive Malware Targeting Ukrainian Organizations
+- Recorded Future - Sandworm Threat Intelligence Reporting
+- WIRED - Analysis of Sandworm Operations
 
-Durga Sai Sri Ramireddy  
-Master’s Student - Cybersecurity  
-University of Houston
+---
 
-*This project was developed as part of academic coursework and expanded for cybersecurity portfolio demonstration.*
+> This analysis was conducted using publicly available threat intelligence. Developed as part of academic coursework and expanded for cybersecurity portfolio demonstration.
+
+**Author:** Durga Sai Sri Ramireddy | MS Cybersecurity, University of Houston  
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0072b1?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/durgaramireddy)
+[![GitHub](https://img.shields.io/badge/-GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/DurgaRamireddy)
